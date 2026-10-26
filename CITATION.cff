@@ -2,9 +2,9 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "phonon-interface-transmission: loose-bond acoustic mismatch transmission at crystal/metal interfaces"
 authors:
-  - family-names: "TODO-family-name"
+  - family-names: "Hernandez"
     given-names: "Israel"
-repository-code: "https://github.com/TODO-user/phonon-interface-transmission"
+repository-code: "https://github.com/Israel-Tanjiro/phonon-interface-transmission"
 license: MIT
 version: 1.0.0
 date-released: "2026-10-26"
