@@ -1,0 +1,6 @@
+{
+  "_comment": "Velocities and densities of Every, Koos & Wolfe, PRB 29, 2190 (1984). Sapphire is the isotropic approximation along the c axis.",
+  "sapphire": {"rho": 3986, "V_L": 11100, "V_T": 6040, "source": "Every et al. 1984, c-axis isotropic approximation"},
+  "Cu": {"rho": 8930, "V_L": 4700, "V_T": 2260, "source": "Every et al. 1984"},
+  "Al": {"rho": 2700, "V_L": 6260, "V_T": 3080, "source": "Every et al. 1984"}
+}

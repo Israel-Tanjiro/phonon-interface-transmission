@@ -1,0 +1,5 @@
+{
+  "_comment": "Template: copy, rename, and fill in your own materials. Give EITHER lambda_GPa+mu_GPa OR V_L+V_T (m/s). rho in kg/m^3.",
+  "silicon_iso": {"rho": 2329, "V_L": 8430, "V_T": 5840, "source": "TODO: cite"},
+  "Au": {"rho": 19300, "lambda_GPa": 148.0, "mu_GPa": 27.0, "source": "TODO: cite"}
+}

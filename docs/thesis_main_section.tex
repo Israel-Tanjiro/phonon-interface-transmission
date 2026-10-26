@@ -1,0 +1,157 @@
+\section{Interface Absorption Probability Using the Acoustic Mismatch Model}
+\label{sec:interface_AMM}
+
+A phonon that reaches the boundary between the sapphire substrate and a superconducting
+film (Al, Nb or Ta) is either reflected back into the substrate or transmitted into the film,
+where it can break Cooper pairs. The probability $P_a$ of this transmission enters the
+simulation as the interface absorption probability. To estimate it from material properties
+we use the loose-bond acoustic mismatch model of Every, Koos and
+Wolfe~\cite{Every1984}, treating the substrate and the film as two isotropic half-spaces
+joined by a layer of distributed springs. The complete derivation, including the coefficient
+matrix of the boundary-value problem, is given in Appendix~\ref{app:interface_derivation};
+here we state the model and discuss its results.
+
+\paragraph{Elastic input.}
+The model requires only the density $\rho$ and the isotropic Lam\'e parameters $\lambda$ and
+$\mu$ of each material. These were computed in Sec.~\ref{TODO:sec_elastic} from the
+second-order (and, for the anharmonic terms, third-order) elastic constants, and are listed in
+Table~\ref{TODO:tab_lame}. They give the bulk wave speeds
+\begin{equation}
+  V_T=\sqrt{\mu/\rho},\qquad V_L=\sqrt{(\lambda+2\mu)/\rho},
+\end{equation}
+and the stress--strain relation
+$\sigma_{ij}=\lambda\,\delta_{ij}\,\nabla\!\cdot\!\mathbf u+\mu(\partial_iu_j+\partial_ju_i)$
+used in Sec.~\ref{TODO:sec_phonon_propagation} is the same one that enters the boundary
+conditions here. Only the harmonic constants ($\lambda$, $\mu$) appear in the transmission
+problem; the third-order coefficients ($\alpha$, $\beta$, $\gamma$) enter only the anharmonic
+downconversion rate. Because $\lambda$ and $\mu$ are isotropic averages
+(\todo{state the averaging scheme used for sapphire}), the sapphire substrate is treated
+as isotropic in this chapter.
+
+\paragraph{Boundary conditions.}
+Let $z$ be the interface normal and let $u$ and $\sigma$ denote displacement and stress.
+Across the interface the traction is continuous, and it is proportional to the jump in
+displacement through the spring constants $K_\parallel$ (tangential) and $K_\perp$ (normal),
+\begin{equation}
+  \sigma_{xz}=K_\parallel\,\Delta u_x,\qquad \sigma_{zz}=K_\perp\,\Delta u_z .
+\end{equation}
+The coupling is expressed through the dimensionless parameters
+\begin{equation}
+  \alpha_\parallel=\frac{K_\parallel}{\rho_cV_{T,c}\,\omega},\qquad
+  \alpha_\perp=\frac{K_\perp}{\rho_cV_{L,c}\,\omega},
+  \label{eq:alpha_omega}
+\end{equation}
+where $\rho_c$, $V_{T,c}$ and $V_{L,c}$ refer to the substrate and $\omega$ is the phonon
+angular frequency. If the stiffness $K$ is frequency independent, $\alpha\propto1/\omega$,
+so low-energy phonons see a stronger coupling than high-energy ones. The limit
+$\alpha\to\infty$ is a welded interface, which reproduces the classical acoustic mismatch
+result, and $\alpha\to0$ is a free surface.
+
+\paragraph{Reflection and transmission of a single wave.}
+An incident L or SV wave in the substrate generates four outgoing waves: reflected L and SV
+in the substrate and transmitted L and SV in the film. Their angles follow from Snell's law,
+$\sin\theta_j/V_j=\sin\theta_i/V_i$, and their amplitudes follow from solving the four
+boundary conditions (Appendix~\ref{app:interface_derivation}). The fraction of the incident
+power carried by each outgoing wave is
+\begin{equation}
+  W_j=|\Gamma_j|^2\,\frac{\rho_jV_j\cos\theta_j}{\rho_{\rm inc}V_{\rm inc}\cos\theta_{\rm inc}},
+  \label{eq:power_coeff}
+\end{equation}
+where $\Gamma_j$ is the displacement amplitude of wave $j$ relative to the incident wave.
+Evanescent waves carry no power. The four fractions sum to one at every angle, as expected
+for an elastic interface that dissipates no energy. For normal incidence the transmitted
+power has the closed form
+\begin{equation}
+  W_{\rm trans}=\frac{4r}{(1+r)^2+r^2/\alpha^2},\qquad r=\frac{Z_m}{Z_c},
+  \label{eq:normal_spring_main}
+\end{equation}
+with $Z=\rho V$ the acoustic impedance of the relevant wave type; it reduces to
+$4r/(1+r)^2$ for a welded interface (Eq.~\eqref{eq:normal_spring}).
+
+Figure~\ref{sec:fig_interface_angular} illustrates the angular dependence for sapphire/Ta.
+For an SV wave incident from sapphire, the reflected L wave becomes evanescent beyond the
+critical angle
+\begin{equation}
+  \theta_c=\arcsin\frac{V_{T,c}}{V_{L,c}}=36.4^\circ ,
+\end{equation}
+and the pseudo-surface wave at $\theta_c$ produces a cusp in the transmitted power that is
+visible for all couplings. A weaker coupling lowers the transmission at all angles; for
+$\alpha_\parallel=\alpha_\perp=0.3$ the transmission at normal incidence drops from about
+$0.98$ (welded) to about $0.2$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{Figures/interface_angular.pdf}
+\caption{Sapphire/Ta interface, isotropic elastic constants.
+(a)~Reflection and refraction of an incident L wave at the interface. Each incident wave
+produces four outgoing waves, L and SV in sapphire and L and SV in Ta, with angles fixed by
+Snell's law, $\sin\theta_j/v_j=\sin\theta_i/v_i$. The inset sketches the loose-bond (spring)
+boundary condition, in which the stresses are proportional to the displacement jump,
+$\sigma_{zz}=K_\perp\Delta u_z$ and $\sigma_{xz}=K_\parallel\Delta u_x$.
+(b)~Inset of (c): partition of the power of an incident L wave among the four outgoing waves
+as a function of the incidence angle $\theta_i$, for $\alpha_\parallel=1.0$ and
+$\alpha_\perp=1.1$; the four contributions sum to one at every angle.
+(c)~Squared amplitude $|\Gamma_{T\to L}|^2$ of the reflected L wave for a unit incident SV
+wave. For a free surface, the pseudo-surface wave gives a sharp peak at the critical angle
+$\theta_c=\arcsin(v_T/v_L)\approx36^\circ$; this peak is progressively suppressed as the
+coupling to the metal increases.
+(d)~Power transmitted into Ta for an incident SV wave, for a welded interface and for the two
+loosely bonded cases indicated in the legend. The cusp at $\theta_c$ is the same resonance
+seen in~(c).}
+\label{sec:fig_interface_angular}
+\end{figure}
+
+\paragraph{Angle- and mode-averaged probability.}
+Phonons arrive from the substrate with an approximately isotropic distribution, so the
+relevant quantity is the flux-weighted angular average of $W_{\rm trans}$ for each incident
+mode, with weight $\cos\theta\sin\theta$, combined over the L, SV and SH modes with the Debye
+weights $V^{-3}$ (one L and two transverse modes). The result,
+$\langle W\rangle_{\rm Debye}$ (Appendix~\ref{app:interface_derivation}), is listed in
+Table~\ref{tab:interface_P} for Cu, Al, Nb and Ta on sapphire. For $\alpha\gtrsim2$ the
+probability saturates at the welded value, which depends only on the acoustic impedance
+mismatch; for $\alpha\lesssim1$ it falls steeply with decreasing $\alpha$
+(Fig.~\ref{sec:fig_interface_vs_alpha}).
+
+\begin{table}[H]
+\centering
+\caption{Debye- and flux-averaged transmission probability $\langle W\rangle_{\rm Debye}$
+from sapphire into the metal film. The ``realistic'' column uses
+$\alpha_\parallel=1.0$, $\alpha_\perp=1.1$ (Cu-fitted values of
+Ref.~\cite{Every1984}), ``order unity'' uses $\alpha_\parallel=\alpha_\perp=1.0$ and
+``very loose'' uses $\alpha_\parallel=\alpha_\perp=0.3$. \todo{The coupling parameters are
+not fitted for Al, Nb and Ta; the three columns are a sensitivity range, not a prediction.}}
+\label{tab:interface_P}
+\begin{tabular}{lcccc}
+\toprule
+Film & welded & realistic & order unity & very loose\\
+\midrule
+Cu & 0.937 & 0.871 & 0.865 & 0.401\\
+Al & 0.829 & 0.809 & 0.807 & 0.566\\
+Nb & 0.937 & 0.876 & 0.871 & 0.412\\
+Ta & 0.856 & 0.760 & 0.754 & 0.277\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{Figures/interface_vs_alpha.pdf}
+\caption{Debye- and flux-averaged transmission probability from sapphire into Cu, Al and Ta
+as a function of the coupling $\alpha=\alpha_\parallel=\alpha_\perp$. Dotted lines mark the
+welded limit of each metal. The upper axis converts $\alpha$ to phonon energy under the
+assumptions that $\alpha=1$ at $2.48$~meV ($\approx600$~GHz) and that the bond stiffness $K$
+is frequency independent; both are assumptions of this work and not measured values.}
+\label{sec:fig_interface_vs_alpha}
+\end{figure}
+
+\paragraph{Limitations.}
+Three assumptions limit how literally these numbers should be read.
+First, the coupling parameters $\alpha_\parallel$ and $\alpha_\perp$ are not determined by the
+elastic constants; the values used are those fitted for Cu by Every \emph{et
+al.}~\cite{Every1984} or are scanned (\todo{measure or cite $K$ for Al/Nb/Ta on sapphire}).
+Second, SH waves are given the tangential coupling, $\alpha_{SH}=\alpha_\parallel$, because
+their motion is purely tangential; this controls the SH contribution to the Ta penalty.
+Third, sapphire is treated as isotropic with averaged elastic constants, although it is
+anisotropic, and the phonon-energy dependence of $\alpha$ through $\omega$ is an assumption.
+The densities used for the isotropic velocities are \todo{confirm: 3986, 2700, 8570 and
+16650~kg\,m$^{-3}$ for sapphire, Al, Nb and Ta}.

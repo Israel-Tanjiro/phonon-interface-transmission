@@ -1,0 +1,101 @@
+% Requires: amsmath, amssymb, booktabs.  Compact appendix for the thesis; full derivation: docs/technical_note.tex
+\newcommand{\ii}{\mathrm{i}}
+
+\chapter{Interface transmission: boundary-value problem and checks}
+\label{app:interface_derivation}
+
+This appendix gives the boundary-value problem solved in Sec.~\ref{sec:interface_AMM}. The
+field expressions are standard (Auld, Ref.~\cite{Auld1973}; Every \emph{et al.},
+Ref.~\cite{Every1984}); the complete derivation and the code are available at
+\todo{repository URL / DOI}.
+
+\section{Fields and coefficient matrix}
+
+The crystal ($c$) occupies $z<0$ and the metal ($m$) $z>0$; all fields depend on $x$ and $z$
+only, with time dependence $e^{-\ii\omega t}$. Write the displacement as
+$\mathbf u=\nabla\phi+\nabla\times(\psi\hat{\mathbf y})$ with plane-wave potentials
+$\phi=A\,e^{\ii\omega(px+sk_Lz-t)}$ and $\psi=B\,e^{\ii\omega(px+sk_Tz-t)}$, where
+$s=\pm1$ is the sign of the vertical propagation direction. The horizontal slowness $p$ is the
+same for every wave (Snell's law) and the vertical slowness is
+$k_j=\sqrt{V_j^{-2}-p^2}$, taken with $\operatorname{Im}k_j\ge0$ so that evanescent waves
+decay away from the interface. With the reduced fields $\tilde u=u/\omega$ and
+$\tilde\sigma=\sigma/\omega^2$, the displacement and stress components per unit potential
+amplitude are given in Table~\ref{tab:fields}, where $D=\rho-2\mu p^2$.
+
+\begin{table}[H]
+\centering
+\caption{Reduced field vectors per unit potential amplitude, evaluated with the density and
+shear modulus of the medium containing the wave.}
+\label{tab:fields}
+\begin{tabular}{lcccc}
+\toprule
+wave & $\tilde u_x$ & $\tilde u_z$ & $\tilde\sigma_{xz}$ & $\tilde\sigma_{zz}$\\
+\midrule
+L  & $\ii p$ & $\ii s k_L$ & $-2\mu s\,p\,k_L$ & $-D$\\
+SV & $-\ii s k_T$ & $\ii p$ & $D$ & $-2\mu s\,p\,k_T$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+An incident wave ($s=+1$, normalised to unit displacement amplitude, $A_{\rm inc}=V_{\rm inc}$)
+produces a reflected L and SV wave in the crystal ($s=-1$) and a transmitted L and SV wave
+in the metal ($s=+1$), with unknown potential amplitudes
+$\mathbf x=(A_r,B_r,A_t,B_t)^{\mathsf T}$. Continuity of traction and the spring law,
+$\sigma^c_{xz}=\sigma^m_{xz}=K_\parallel(u_x^m-u_x^c)$ and
+$\sigma^c_{zz}=\sigma^m_{zz}=K_\perp(u_z^m-u_z^c)$, give $M\mathbf x=\mathbf b$ with
+\begin{equation}
+  M=\begin{pmatrix}
+  \tilde\sigma_{xz}^{rL} & \tilde\sigma_{xz}^{rT} & -\tilde\sigma_{xz}^{tL} & -\tilde\sigma_{xz}^{tT}\\[2pt]
+  \tilde\sigma_{zz}^{rL} & \tilde\sigma_{zz}^{rT} & -\tilde\sigma_{zz}^{tL} & -\tilde\sigma_{zz}^{tT}\\[2pt]
+  \tilde\sigma_{xz}^{rL}+\tilde K_\parallel\tilde u_x^{rL} & \tilde\sigma_{xz}^{rT}+\tilde K_\parallel\tilde u_x^{rT} &
+   -\tilde K_\parallel\tilde u_x^{tL} & -\tilde K_\parallel\tilde u_x^{tT}\\[2pt]
+  \tilde\sigma_{zz}^{rL}+\tilde K_\perp\tilde u_z^{rL} & \tilde\sigma_{zz}^{rT}+\tilde K_\perp\tilde u_z^{rT} &
+   -\tilde K_\perp\tilde u_z^{tL} & -\tilde K_\perp\tilde u_z^{tT}
+  \end{pmatrix},\quad
+  \mathbf b=-\begin{pmatrix}
+  \tilde\sigma_{xz}^{\rm inc}\\ \tilde\sigma_{zz}^{\rm inc}\\
+  \tilde\sigma_{xz}^{\rm inc}+\tilde K_\parallel\tilde u_x^{\rm inc}\\
+  \tilde\sigma_{zz}^{\rm inc}+\tilde K_\perp\tilde u_z^{\rm inc}
+  \end{pmatrix},
+\end{equation}
+where $\tilde K_\parallel=\alpha_\parallel\mu_c/V_{T,c}$ and
+$\tilde K_\perp=\alpha_\perp(\lambda_c+2\mu_c)/V_{L,c}$ follow from Eq.~\eqref{eq:alpha_omega}
+(superscripts $r$, $t$, inc denote the reflected, transmitted and incident waves, and L, T
+their type). The welded limit replaces rows 3--4 by continuity of $\tilde u_x$ and $\tilde u_z$;
+the free-surface limit is $\tilde K\to0$. The matrix has no useful closed form for general
+$\theta_i$, so it is inverted numerically at each angle. The amplitude coefficients are
+$\Gamma_j=A_j/V_j$ (L) or $B_j/V_j$ (T), and the power coefficients are given by
+Eq.~\eqref{eq:power_coeff}.
+
+\section{SH channel}
+
+For SH polarisation the same procedure gives a $2\times2$ system with the solution
+\begin{equation}
+  T_r=\frac{2}{1+b/a-\ii\,b/\tilde K_{SH}},\qquad a=\mu_ck_{T,c},\ \ b=\mu_mk_{T,m},\ \
+  \tilde K_{SH}=\alpha_{SH}\frac{\mu_c}{V_{T,c}},
+\end{equation}
+with $\alpha_{SH}=\alpha_\parallel$ assumed.
+
+\section{Energy conservation and validation}
+
+For real $K$ the spring stores but does not dissipate energy, so the four power fractions of
+Eq.~\eqref{eq:power_coeff} sum to one at every angle; the numerical solution satisfies this to
+$10^{-8}$ for the welded, spring and free-surface cases and for SH. The implementation was
+also checked against three closed-form limits:
+\begin{itemize}
+\item \emph{normal incidence}, where the transmitted power is
+\begin{equation}
+  W_{\rm trans}=\frac{4r}{(1+r)^2+r^2/\alpha^2},\qquad r=\frac{Z_m}{Z_c},\ \ Z=\rho V,
+  \label{eq:normal_spring}
+\end{equation}
+reducing to $4r/(1+r)^2$ for $\alpha\to\infty$ (for sapphire/Ta and $\alpha=1$ it gives $0.739$);
+\item the \emph{SH solution} above, for $\theta_i=10^\circ$, $40^\circ$ and $70^\circ$;
+\item the \emph{free-surface} amplitudes of an incident SV wave,
+$\Gamma_{T\to L}=-\kappa\sin4\theta/(\sin2\theta\sin2\theta_L+\kappa^2\cos^22\theta)$ with
+$\kappa=V_L/V_T$ and $\sin\theta_L=\kappa\sin\theta$, which also gives the peak
+$|\Gamma_{T\to L}|^2=14.7$ at $\theta_c=36.4^\circ$.
+\end{itemize}
+All agree with the numerical solver to $10^{-9}$ or better (the $10^{-6}$ for the
+normal-incidence limit reflects the finite angle used to approximate $\theta\to0$). In addition, the welded flux-averaged
+transmission of the Al/sapphire and Nb/sapphire interfaces computed with the velocities of Kaplan~\cite{Kaplan1979}
+agrees with his tabulated values to within $1.3\%$.

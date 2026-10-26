@@ -1,0 +1,8 @@
+__pycache__/
+output/
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.out
+.DS_Store

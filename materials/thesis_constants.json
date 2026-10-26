@@ -1,0 +1,8 @@
+{
+  "_comment": "Isotropic parameters used in the thesis. lambda, mu in GPa, rho in kg/m^3. Velocities follow from V_T=sqrt(mu/rho), V_L=sqrt((lambda+2mu)/rho). Densities are standard bulk values (not given in the source tables) -- confirm before publishing.",
+  "sapphire": {"rho": 3986, "lambda_GPa": 139.8, "mu_GPa": 166.24, "source": "Hernandez et al., arXiv:2408.04732, Table 3 (polycrystalline average of second-order elastic constants)"},
+  "Al": {"rho": 2700, "lambda_GPa": 58.7,  "mu_GPa": 26.2,  "source": "thesis anharmonic-downconversion table"},
+  "Nb": {"rho": 8570, "lambda_GPa": 145.0, "mu_GPa": 39.7,  "source": "thesis anharmonic-downconversion table"},
+  "Ta": {"rho": 16650, "lambda_GPa": 149.3, "mu_GPa": 70.55, "source": "thesis anharmonic-downconversion table"},
+  "Cu": {"rho": 8930, "V_L": 4700, "V_T": 2260, "source": "Every, Koos & Wolfe, PRB 29, 2190 (1984), their Ref. 16"}
+}
